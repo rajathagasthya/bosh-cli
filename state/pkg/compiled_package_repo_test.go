@@ -132,7 +132,7 @@ var _ = Describe("CompiledPackageRepo", func() {
 		It("returns error when saving to index fails", func() {
 			fs.WriteFileError = errors.New("could not save")
 
-			record := CompiledPackageRecord{
+			record = CompiledPackageRecord{
 				BlobID:   "fake-blob-id",
 				BlobSHA1: "fake-sha1",
 			}

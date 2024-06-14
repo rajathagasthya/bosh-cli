@@ -191,11 +191,11 @@ func (d DirectorImpl) HasRelease(name, version string, stemcell OSVersionSlug) (
 	}
 	if found {
 		if stemcell.IsProvided() {
-			found, err := d.ReleaseHasCompiledPackage(NewReleaseSlug(name, version), stemcell)
-			return found, err
+			hasCompiledPackage, err := d.ReleaseHasCompiledPackage(NewReleaseSlug(name, version), stemcell)
+			return hasCompiledPackage, err
 		} else {
-			found, err := d.ReleaseHasSource(NewReleaseSlug(name, version))
-			return found, err
+			hasSource, err := d.ReleaseHasSource(NewReleaseSlug(name, version))
+			return hasSource, err
 		}
 	}
 	return found, err

@@ -269,15 +269,15 @@ func (t varsTracker) scopedVarsTracker(name string) (varsTracker, error) {
 		return varsTracker{}, bosherr.Error("Detected recursion")
 	}
 
-	varsTracker := newVarsTracker(t.vars, t.expectAllFound, t.expectAllUsed)
-	varsTracker.defs = t.defs
-	varsTracker.visited[name] = struct{}{}
+	tracker := newVarsTracker(t.vars, t.expectAllFound, t.expectAllUsed)
+	tracker.defs = t.defs
+	tracker.visited[name] = struct{}{}
 
 	for k := range t.visited {
-		varsTracker.visited[k] = struct{}{}
+		tracker.visited[k] = struct{}{}
 	}
 
-	return varsTracker, nil
+	return tracker, nil
 }
 
 func (t *varsTracker) ExtractDefinitions(obj interface{}) error {

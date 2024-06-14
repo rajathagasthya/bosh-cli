@@ -120,15 +120,15 @@ func (c CreateRecoveryPlanCmd) getMaxInFlightByInstanceGroup() (map[string]strin
 		return nil, err
 	}
 
-	var updateManifest updateManifest
-	err = yaml.Unmarshal([]byte(rawManifest), &updateManifest)
+	var u updateManifest
+	err = yaml.Unmarshal([]byte(rawManifest), &u)
 	if err != nil {
 		return nil, err
 	}
 
-	globalMaxInFlight := updateManifest.Update["max_in_flight"]
+	globalMaxInFlight := u.Update["max_in_flight"]
 	flightMap := make(map[string]string)
-	for _, instanceGroup := range updateManifest.InstanceGroups {
+	for _, instanceGroup := range u.InstanceGroups {
 		groupMaxInFlight := instanceGroup.Update["max_in_flight"]
 		if groupMaxInFlight == nil {
 			groupMaxInFlight = globalMaxInFlight

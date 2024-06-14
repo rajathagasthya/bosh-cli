@@ -93,7 +93,7 @@ var _ = Describe("FSGenerator", func() {
 		})
 
 		It("saves release name to directory base name stripping '-release' suffix from the name", func() {
-			releaseDir := NewFSReleaseDir(
+			releaseDir = NewFSReleaseDir(
 				"/dir-release",
 				config,
 				gitRepo,
