@@ -110,7 +110,7 @@ func (ri FileIndex) readRawEntries() ([]indexEntry, error) {
 func (ri FileIndex) writeRawEntries(entries []indexEntry) error {
 	bytes, err := json.Marshal(entries)
 	if err != nil {
-		return bosherr.WrapError(err, "Marshalling index entries")
+		return bosherr.WrapError(err, "Marshaling index entries")
 	}
 
 	err = ri.fs.WriteFile(ri.path, bytes)

@@ -64,14 +64,7 @@ type envFactory struct {
 	deploymentRecord   bidepl.Record
 }
 
-func NewEnvFactory(
-	deps BasicDeps,
-	manifestPath string,
-	statePath string,
-	manifestVars boshtpl.Variables,
-	manifestOp patch.Op,
-	recreatePersistentDisks bool,
-) *envFactory {
+func NewEnvFactory(deps BasicDeps, manifestPath string, statePath string, manifestVars boshtpl.Variables, manifestOp patch.Op, recreatePersistentDisks bool) *envFactory { //nolint:funlen
 	f := envFactory{
 		deps:         deps,
 		manifestPath: manifestPath,

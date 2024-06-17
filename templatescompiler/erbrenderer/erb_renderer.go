@@ -87,7 +87,7 @@ func (r erbRenderer) writeRendererScript(scriptPath string) error {
 func (r erbRenderer) writeContext(contextPath string, context TemplateEvaluationContext) error {
 	contextBytes, err := json.Marshal(context)
 	if err != nil {
-		return bosherr.WrapError(err, "Marshalling context")
+		return bosherr.WrapError(err, "Marshaling context")
 	}
 
 	err = r.fs.WriteFileString(contextPath, string(contextBytes))

@@ -86,7 +86,7 @@ func (s *fileSystemDeploymentStateService) Save(deploymentState DeploymentState)
 
 	jsonContent, err := json.MarshalIndent(deploymentState, "", "    ")
 	if err != nil {
-		return bosherr.WrapError(err, "Marshalling deployment state into JSON")
+		return bosherr.WrapError(err, "Marshaling deployment state into JSON")
 	}
 
 	err = s.fs.WriteFile(s.configPath, jsonContent)

@@ -101,7 +101,7 @@ type DeploymentPreparer struct {
 	targetProvider                          biinstall.TargetProvider
 }
 
-func (c *DeploymentPreparer) PrepareDeployment(stage biui.Stage, recreate bool, recreatePersistentDisks bool, skipDrain bool) (err error) {
+func (c *DeploymentPreparer) PrepareDeployment(stage biui.Stage, recreate bool, recreatePersistentDisks bool, skipDrain bool) (err error) { //nolint:funlen
 	c.ui.BeginLinef("Deployment state: '%s'\n", c.deploymentStateService.Path())
 
 	if !c.deploymentStateService.Exists() {

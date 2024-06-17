@@ -40,7 +40,7 @@ func (w ArchiveWriter) Write(release Release, pkgFpsToSkip []string) (string, er
 
 	manifestBytes, err := yaml.Marshal(release.Manifest())
 	if err != nil {
-		return "", bosherr.WrapError(err, "Marshalling release manifest")
+		return "", bosherr.WrapError(err, "Marshaling release manifest")
 	}
 
 	manifestPath := filepath.Join(stagingDir, "release.MF")

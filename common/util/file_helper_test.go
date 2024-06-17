@@ -65,7 +65,7 @@ var _ = Describe("AbsolutifyPath", func() {
 
 	Context("File path is a url", func() {
 		Context("file path begins with http", func() {
-			It("passes the file path it recieved", func() {
+			It("passes the file path it received", func() {
 				fakeFilePath = "http://fake/absolute/path/file.tgz"
 				result, err := util.AbsolutifyPath(fakeManifestPath, fakeFilePath, realfs)
 				Expect(result).To(Equal("http://fake/absolute/path/file.tgz"))
@@ -94,7 +94,7 @@ var _ = Describe("AbsolutifyPath", func() {
 				})
 
 				Context("file path begins with 'file:///'", func() {
-					It("passes the file path it recieved", func() {
+					It("passes the file path it received", func() {
 						fakeFilePath = "file:///fake/absolute/path/file.tgz"
 						result, err := util.AbsolutifyPath(fakeManifestPath, fakeFilePath, realfs)
 						Expect(result).To(Equal("file:///fake/absolute/path/file.tgz"))

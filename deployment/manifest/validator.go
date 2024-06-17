@@ -28,7 +28,7 @@ func NewValidator(logger boshlog.Logger) Validator {
 	}
 }
 
-func (v *validator) Validate(deploymentManifest Manifest, releaseSetManifest birelsetmanifest.Manifest) error {
+func (v *validator) Validate(deploymentManifest Manifest, releaseSetManifest birelsetmanifest.Manifest) error { //nolint:funlen
 	errs := []error{}
 	if v.isBlank(deploymentManifest.Name) {
 		errs = append(errs, bosherr.Error("name must be provided"))

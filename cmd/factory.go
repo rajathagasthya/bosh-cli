@@ -22,13 +22,13 @@ func NewFactory(deps BasicDeps) Factory {
 func (f Factory) New(args []string) (Cmd, error) {
 	var cmdOpts interface{}
 
-	boshOpts := &BoshOpts{}
-
-	boshOpts.VersionOpt = func() error {
-		return &goflags.Error{
-			Type:    goflags.ErrHelp,
-			Message: fmt.Sprintf("version %s\n", VersionLabel),
-		}
+	boshOpts := &BoshOpts{
+		VersionOpt: func() error {
+			return &goflags.Error{
+				Type:    goflags.ErrHelp,
+				Message: fmt.Sprintf("version %s\n", VersionLabel),
+			}
+		},
 	}
 
 	parser := goflags.NewParser(boshOpts, goflags.HelpFlag|goflags.PassDoubleDash)

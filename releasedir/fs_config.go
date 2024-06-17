@@ -78,7 +78,7 @@ func (c FSConfig) SaveName(name string) error {
 
 	bytes, err := yaml.Marshal(publicSchema)
 	if err != nil {
-		return bosherr.WrapError(err, "Marshalling config")
+		return bosherr.WrapError(err, "Marshaling config")
 	}
 
 	err = c.fs.WriteFile(c.publicPath, bytes)

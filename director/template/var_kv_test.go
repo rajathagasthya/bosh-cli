@@ -23,12 +23,12 @@ var _ = Describe("VarKV", func() {
 			Expect(arg).To(Equal(VarKV{Name: "name", Value: "val"}))
 		})
 
-		It("reverts to the old (incorrect) behaviour and removes the wrapping double quotes if the value is a string", func() {
+		It("reverts to the old (incorrect) behavior and removes the wrapping double quotes if the value is a string", func() {
 			err := (&arg).UnmarshalFlag(`name="val"`)
 			Expect(err).ToNot(HaveOccurred())
 			Expect(arg).To(Equal(VarKV{Name: "name", Value: "val"}))
 		})
-		It("reverts to the old (incorrect) behaviour and removes the wrapping single quotes if the value is a string", func() {
+		It("reverts to the old (incorrect) behavior and removes the wrapping single quotes if the value is a string", func() {
 			err := (&arg).UnmarshalFlag(`name='val'`)
 			Expect(err).ToNot(HaveOccurred())
 			Expect(arg).To(Equal(VarKV{Name: "name", Value: "val"}))

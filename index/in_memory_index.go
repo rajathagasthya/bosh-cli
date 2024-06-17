@@ -19,7 +19,7 @@ func NewInMemoryIndex() Index {
 func (ri *inMemoryIndex) Find(key interface{}, valuePtr interface{}) error {
 	keyBytes, err := json.Marshal(key)
 	if err != nil {
-		return bosherr.WrapErrorf(err, "Marshalling key %#v", key)
+		return bosherr.WrapErrorf(err, "Marshaling key %#v", key)
 	}
 
 	valueBytes, exists := ri.entryMap[string(keyBytes)]
@@ -38,12 +38,12 @@ func (ri *inMemoryIndex) Find(key interface{}, valuePtr interface{}) error {
 func (ri *inMemoryIndex) Save(key interface{}, value interface{}) error {
 	keyBytes, err := json.Marshal(key)
 	if err != nil {
-		return bosherr.WrapErrorf(err, "Marshalling key %#v", key)
+		return bosherr.WrapErrorf(err, "Marshaling key %#v", key)
 	}
 
 	valueBytes, err := json.Marshal(value)
 	if err != nil {
-		return bosherr.WrapErrorf(err, "Marshalling value %#v", value)
+		return bosherr.WrapErrorf(err, "Marshaling value %#v", value)
 	}
 
 	ri.entryMap[string(keyBytes)] = valueBytes

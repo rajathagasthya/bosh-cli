@@ -267,7 +267,7 @@ func (i FSIndex) save(name string, entries []indexEntry) error {
 
 	bytes, err := yaml.Marshal(schema)
 	if err != nil {
-		return bosherr.WrapError(err, "Marshalling index")
+		return bosherr.WrapError(err, "Marshaling index")
 	}
 
 	indexPath := i.indexPath(name)

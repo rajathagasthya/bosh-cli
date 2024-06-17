@@ -481,7 +481,7 @@ xyz: [((!key2))]
 					return "key2-val", true, nil
 
 				default:
-					panic(fmt.Sprintf("Unexpected variable definiton: %#v", varDef))
+					panic(fmt.Sprintf("Unexpected variable definition: %#v", varDef))
 				}
 			},
 		}
@@ -717,7 +717,7 @@ variables:
 					return map[interface{}]interface{}{"subkey": "key1-subkey"}, true, nil
 
 				default:
-					panic(fmt.Sprintf("Unexpected variable definiton: %#v", varDef))
+					panic(fmt.Sprintf("Unexpected variable definition: %#v", varDef))
 				}
 			},
 		}
@@ -731,7 +731,7 @@ variables:
 		Expect(result).To(Equal([]byte("private-key-val\n")))
 	})
 
-	It("keeps variable definitons around if that variable was not found using vars-store flag", func() {
+	It("keeps variable definitions around if that variable was not found using vars-store flag", func() {
 		template := NewTemplate([]byte(`
 variables:
 - name: not-found
@@ -752,7 +752,7 @@ variables:
 `)))
 	})
 
-	It("keeps variable definitons around if that variable was not found using var flag", func() {
+	It("keeps variable definitions around if that variable was not found using var flag", func() {
 		template := NewTemplate([]byte(`
 variables:
 - name: not-found
@@ -790,7 +790,7 @@ variables:
 					return nil, false, nil
 
 				default:
-					panic(fmt.Sprintf("Unexpected variable definiton: %#v", varDef))
+					panic(fmt.Sprintf("Unexpected variable definition: %#v", varDef))
 				}
 			},
 		}
@@ -821,7 +821,7 @@ variables:
 					return nil, false, nil
 
 				default:
-					panic(fmt.Sprintf("Unexpected variable definiton: %#v", varDef))
+					panic(fmt.Sprintf("Unexpected variable definition: %#v", varDef))
 				}
 			},
 		}

@@ -41,14 +41,14 @@ func (a *VarKV) UnmarshalFlag(data string) error {
 		return bosherr.WrapErrorf(err, "Deserializing variables '%s'", data)
 	}
 
-	//yaml.Unmarshal returns a string if the input is not valid yaml.
-	//in that case, we pass through the string itself as the Unmarshal process strips newlines.
+	// yaml.Unmarshal returns a string if the input is not valid yaml.
+	// in that case, we pass through the string itself as the Unmarshal process strips newlines.
 	if _, ok := vars.(string); ok {
-		//Stripping the quotes is required to keep
-		//backwards compability (YAML unmarshal also removed wrapping quotes from the value).
+		// Stripping the quotes is required to keep
+		// backwards compatibility (YAML unmarshal also removed wrapping quotes from the value).
 		*a = VarKV{Name: pieces[nameIndex], Value: trimWrappingQuotes(pieces[valueIndex])}
 	} else {
-		//otherwise, return the parsed YAML object
+		// otherwise, return the parsed YAML object
 		*a = VarKV{Name: pieces[nameIndex], Value: vars}
 	}
 

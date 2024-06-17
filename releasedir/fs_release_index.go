@@ -218,7 +218,7 @@ func (i FSReleaseIndex) save(name string, schema fsReleaseIndexSchema) error {
 
 	bytes, err := yaml.Marshal(schema)
 	if err != nil {
-		return bosherr.WrapError(err, "Marshalling index")
+		return bosherr.WrapError(err, "Marshaling index")
 	}
 
 	indexPath := i.indexPath(name)
@@ -234,7 +234,7 @@ func (i FSReleaseIndex) save(name string, schema fsReleaseIndexSchema) error {
 func (i FSReleaseIndex) saveManifest(manifest boshrelman.Manifest) error {
 	bytes, err := yaml.Marshal(manifest)
 	if err != nil {
-		return bosherr.WrapError(err, "Marshalling manifest")
+		return bosherr.WrapError(err, "Marshaling manifest")
 	}
 
 	manifestPath := i.ManifestPath(manifest.Name, manifest.Version)

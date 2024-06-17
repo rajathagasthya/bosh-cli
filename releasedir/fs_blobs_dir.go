@@ -205,7 +205,7 @@ func (d FSBlobsDir) TrackBlob(path string, src io.ReadCloser) (Blob, error) {
 		return Blob{}, bosherr.WrapErrorf(err, "Populating temp blob")
 	}
 
-	//generation of digest string
+	// generation of digest string
 	sha1, err := d.digestCalculator.Calculate(tempFile.Name())
 	if err != nil {
 		return Blob{}, bosherr.WrapErrorf(err, "Calculating temp blob sha1")
@@ -400,7 +400,7 @@ func (d FSBlobsDir) save(blobs []Blob) error {
 
 	bytes, err := yaml.Marshal(schema)
 	if err != nil {
-		return bosherr.WrapError(err, "Marshalling blobs index")
+		return bosherr.WrapError(err, "Marshaling blobs index")
 	}
 
 	err = d.fs.WriteFile(d.indexPath, bytes)

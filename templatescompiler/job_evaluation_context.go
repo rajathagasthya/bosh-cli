@@ -38,7 +38,7 @@ type RootContext struct {
 	// Usually is accessed with <%= spec.networks.default.ip %>
 	NetworkContexts map[string]networkContext `json:"networks"`
 
-	//TODO: this should be a map[string]interface{}
+	// TODO: this should be a map[string]interface{}
 	GlobalProperties  biproperty.Map  `json:"global_properties"`  // values from manifest's top-level properties
 	ClusterProperties biproperty.Map  `json:"cluster_properties"` // values from instance group (deployment job) properties
 	JobProperties     *biproperty.Map `json:"job_properties"`     // values from release job (aka template) properties
@@ -104,11 +104,11 @@ func (ec jobEvaluationContext) MarshalJSON() ([]byte, error) {
 		return []byte{}, bosherr.WrapErrorf(err, "Setting job eval context's ID to UUID: %#v", context)
 	}
 
-	ec.logger.Debug(ec.logTag, "Marshalling context %#v", context)
+	ec.logger.Debug(ec.logTag, "Marshaling context %#v", context)
 
 	jsonBytes, err := json.Marshal(context)
 	if err != nil {
-		return []byte{}, bosherr.WrapErrorf(err, "Marshalling job eval context: %#v", context)
+		return []byte{}, bosherr.WrapErrorf(err, "Marshaling job eval context: %#v", context)
 	}
 
 	return jsonBytes, nil

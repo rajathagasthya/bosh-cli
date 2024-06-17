@@ -172,7 +172,7 @@ func (c FSConfig) UnsetCredentials(urlOrAlias string) Config {
 func (c FSConfig) Save() error {
 	bytes, err := yaml.Marshal(c.schema)
 	if err != nil {
-		return bosherr.WrapError(err, "Marshalling config")
+		return bosherr.WrapError(err, "Marshaling config")
 	}
 
 	err = c.fs.WriteFile(c.path, bytes)

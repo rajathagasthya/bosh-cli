@@ -60,7 +60,7 @@ type CmdOutput struct {
 	Log    string      `json:"log"`
 }
 
-//#go:generate counterfeiter -o fakes/fake_cpi_cmd_runner.go . CPICmdRunner
+// #go:generate counterfeiter -o fakes/fake_cpi_cmd_runner.go . CPICmdRunner
 
 type CPICmdRunner interface {
 	Run(context CmdContext, method string, apiVersion int, args ...interface{}) (CmdOutput, error)
@@ -98,7 +98,7 @@ func (r *cpiCmdRunner) Run(context CmdContext, method string, apiVersion int, ar
 	}
 	inputBytes, err := json.Marshal(cmdInput)
 	if err != nil {
-		return CmdOutput{}, bosherr.WrapErrorf(err, "Marshalling external CPI command input %#v", cmdInput)
+		return CmdOutput{}, bosherr.WrapErrorf(err, "Marshaling external CPI command input %#v", cmdInput)
 	}
 	useIsolatedEnv := true
 	value, present := os.LookupEnv("BOSH_CPI_USE_ISOLATED_ENV")

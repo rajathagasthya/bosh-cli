@@ -46,7 +46,7 @@ func (c Cmd) getDeployment() (boshdir.Deployment, error) {
 	return c.session().Deployment()
 }
 
-func (c Cmd) Execute() (cmdErr error) {
+func (c Cmd) Execute() (cmdErr error) { //nolint:funlen
 	// Catch convenience panics from panicIfErr
 	defer func() {
 		if r := recover(); r != nil {

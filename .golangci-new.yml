@@ -45,32 +45,29 @@ linters:
     - gosec
     - govet
     - errcheck
-
+    - errchkjson
+    - exportloopref
+    - funlen
+    - goconst
+    - goheader
+    - goimports
+    - goprintffuncname
+    - gosimple
+    - ineffassign
+    - makezero
+    - misspell
 
 #    enable later:
-#    - stylecheck
-#    - revive
-#    - whitespace
-#    - bodyclose
-#    - dogsled
-#    - dupl
-#    - errcheck
-#    - errchkjson
-#    - errorlint
-#    - exportloopref
-#    - funlen
-#    - gocognit
-#    - goconst
-#    - gocritic
-#    - gocyclo
-#    - goheader
-#    - goimports
-#    - goprintffuncname
-#    - gosec
-#    - gosimple
-#    - govet
-#    - ineffassign
-#    - makezero
+#    - stylecheck - too many style warnings
+#    - revive - too many style warnings
+#    - whitespace - too many opinionated whitespace issues; not needed as long as gofmt works
+#    - bodyclose - respBody false positives
+#    - dogsled - warns on valid blank identifiers; doesn't seem very useful
+#    - dupl - some duplicate code needs to be carefully extracted
+#    - errorlint - errors.As warnings
+#    - gocognit - needs careful review of code to reduce complexity
+#    - gocritic - LOT of issues to fix; deferring
+#    - gocyclo - needs careful review of code to reduce complexity; possible overlap with gocognit
 #    - misspell
 #    - musttag
 #    - nakedret
@@ -124,6 +121,7 @@ issues:
         - revive
         - musttag
         - gosec
+        - goconst
 
     # https://github.com/go-critic/go-critic/issues/926
     - linters:
