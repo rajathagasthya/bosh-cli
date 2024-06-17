@@ -44,6 +44,7 @@ linters:
   enable:
     - gosec
     - govet
+    - errcheck
 
 
 #    enable later:
