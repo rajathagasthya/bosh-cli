@@ -26,12 +26,26 @@ func NewValidator(logger boshlog.Logger) Validator {
 func (v *validator) Validate(manifest Manifest, releaseSetManifest birelsetmanifest.Manifest) error {
 	errs := []error{}
 
-	cpiJobName := manifest.Template.Name
+	for _, template := range manifest.Templates {
+		errRet := v.validateReleaseJobRef(template, releaseSetManifest)
+		errs = append(errs, errRet...)
+	}
+
+	if len(errs) > 0 {
+		return bosherr.NewMultiError(errs...)
+	}
+
+	return nil
+}
+
+func (v *validator) validateReleaseJobRef(releaseJobRef ReleaseJobRef, releaseSetManifest birelsetmanifest.Manifest) []error {
+	errs := []error{}
+	cpiJobName := releaseJobRef.Name
 	if v.isBlank(cpiJobName) {
 		errs = append(errs, bosherr.Error("cloud_provider.template.name must be provided"))
 	}
 
-	cpiReleaseName := manifest.Template.Release
+	cpiReleaseName := releaseJobRef.Release
 	if v.isBlank(cpiReleaseName) {
 		errs = append(errs, bosherr.Error("cloud_provider.template.release must be provided"))
 	}
@@ -40,12 +54,7 @@ func (v *validator) Validate(manifest Manifest, releaseSetManifest birelsetmanif
 	if !found {
 		errs = append(errs, bosherr.Errorf("cloud_provider.template.release '%s' must refer to a release in releases", cpiReleaseName))
 	}
-
-	if len(errs) > 0 {
-		return bosherr.NewMultiError(errs...)
-	}
-
-	return nil
+	return errs
 }
 
 func (v *validator) isBlank(str string) bool {

@@ -7,6 +7,7 @@ import (
 type Manifest struct {
 	Name       string
 	Template   ReleaseJobRef
+	Templates  []ReleaseJobRef
 	Properties biproperty.Map
 	Mbus       string
 	Cert       Certificate

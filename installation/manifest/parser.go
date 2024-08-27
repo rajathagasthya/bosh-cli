@@ -36,6 +36,7 @@ type manifest struct {
 
 type installation struct {
 	Template   template
+	Templates  []template
 	Properties map[interface{}]interface{}
 	SSHTunnel  SSHTunnel `yaml:"ssh_tunnel"`
 	Mbus       string
@@ -113,13 +114,29 @@ func (p *parser) Parse(path string, vars boshtpl.Variables, op patch.Op, release
 
 	installationManifest := Manifest{
 		Name: comboManifest.Name,
-		Template: ReleaseJobRef{
-			Name:    comboManifest.CloudProvider.Template.Name,
-			Release: comboManifest.CloudProvider.Template.Release,
-		},
 		Mbus: comboManifest.CloudProvider.Mbus,
 		Cert: comboManifest.CloudProvider.Cert,
 	}
+
+	templateList := []ReleaseJobRef{}
+	if len(comboManifest.CloudProvider.Templates) != 0 {
+		for _, template := range comboManifest.CloudProvider.Templates {
+			templateName := template.Name
+			templateList = append(templateList, ReleaseJobRef{Name: templateName, Release: template.Release})
+		}
+
+		installationManifest.Templates = templateList
+	} else {
+		templateList = append(templateList, ReleaseJobRef{
+			Name:    comboManifest.CloudProvider.Template.Name,
+			Release: comboManifest.CloudProvider.Template.Release,
+		})
+		installationManifest.Templates = templateList
+	}
+
+	// FIXME: Do we need to deduplicate the templateList? It is illegal to have multiple
+	//        entries with the same Name, but not illegal to have multiple entries with
+	//        different Names but the same Release.
 
 	properties, err := biproperty.BuildMap(comboManifest.CloudProvider.Properties)
 	if err != nil {
