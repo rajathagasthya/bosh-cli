@@ -16,28 +16,9 @@ type CpiInstaller struct {
 }
 
 func (i CpiInstaller) ValidateCpiRelease(installationManifest biinstallmanifest.Manifest, stage biui.Stage) error {
-	errs := []error{}
 	return stage.Perform("Validating cpi release", func() error {
-		for _, template := range installationManifest.Templates {
-
-			cpiReleaseName := template.Release
-			cpiRelease, found := i.ReleaseManager.Find(cpiReleaseName)
-			if !found {
-				errs = append(errs, bosherr.Errorf("installation release '%s' must refer to a provided release", cpiReleaseName))
-				continue
-			}
-
-			err := i.Validator.Validate(cpiRelease, template.Name)
-			if err != nil {
-				errs = append(errs, bosherr.WrapErrorf(err, "Invalid CPI release '%s'", cpiReleaseName))
-			}
-		}
-
-		if len(errs) > 0 {
-			return bosherr.NewMultiError(errs...)
-		} else {
-			return nil
-		}
+		err := i.Validator.Validate(installationManifest.Templates, &i)
+		return err
 	})
 }
 
