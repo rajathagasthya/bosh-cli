@@ -322,7 +322,6 @@ var _ = Describe("CreateEnvCmd", func() {
 				cpiInstaller := bicpirel.CpiInstaller{
 					ReleaseManager:   releaseManager,
 					InstallerFactory: mockInstallerFactory,
-					Validator:        bicpirel.NewValidator(),
 				}
 				releaseFetcher := biinstall.NewReleaseFetcher(tarballProvider, releaseReader, releaseManager)
 				stemcellFetcher := bistemcell.Fetcher{
@@ -430,7 +429,8 @@ var _ = Describe("CreateEnvCmd", func() {
 
 			mockInstallerFactory.EXPECT().NewInstaller(target).Return(mockInstaller).AnyTimes()
 
-			installation := biinstall.NewInstallation(target, installedJob, installationManifest)
+			installation := biinstall.NewInstallation(target, []biinstall.InstalledJob{installedJob},
+				installationManifest)
 
 			expectInstall = mockInstaller.EXPECT().Install(installationManifest, gomock.Any()).Do(func(_ interface{}, stage boshui.Stage) {
 				Expect(fakeStage.SubStages).To(ContainElement(stage))

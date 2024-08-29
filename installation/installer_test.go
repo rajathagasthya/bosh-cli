@@ -137,7 +137,7 @@ var _ = Describe("Installer", func() {
 		BeforeEach(func() {
 			installation = NewInstallation(
 				target,
-				installedJob,
+				[]InstalledJob{installedJob},
 				installationManifest,
 			)
 		})

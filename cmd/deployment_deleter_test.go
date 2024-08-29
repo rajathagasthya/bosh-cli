@@ -216,7 +216,6 @@ cloud_provider:
 			cpiInstaller := bicpirel.CpiInstaller{
 				ReleaseManager:   releaseManager,
 				InstallerFactory: mockInstallerFactory,
-				Validator:        bicpirel.NewValidator(),
 			}
 			releaseFetcher := biinstall.NewReleaseFetcher(tarballProvider, releaseReader, releaseManager)
 			releaseSetAndInstallationManifestParser := cmd.ReleaseSetAndInstallationManifestParser{

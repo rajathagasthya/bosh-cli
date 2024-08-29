@@ -308,7 +308,8 @@ cloud_provider:
 			installedJob.Name = "fake-cpi-release-job-name"
 			installedJob.Path = filepath.Join(target.JobsPath(), "fake-cpi-release-job-name")
 
-			installation := biinstall.NewInstallation(target, installedJob, installationManifest)
+			installation := biinstall.NewInstallation(target, []biinstall.InstalledJob{installedJob},
+				installationManifest)
 
 			mockInstallerFactory.EXPECT().NewInstaller(target).Return(mockInstaller).AnyTimes()
 
@@ -425,7 +426,6 @@ cloud_provider:
 				cpiInstaller := bicpirel.CpiInstaller{
 					ReleaseManager:   releaseManager,
 					InstallerFactory: mockInstallerFactory,
-					Validator:        bicpirel.NewValidator(),
 				}
 				releaseFetcher := biinstall.NewReleaseFetcher(tarballProvider, releaseReader, releaseManager)
 				stemcellFetcher := bistemcell.Fetcher{
