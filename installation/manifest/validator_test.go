@@ -30,9 +30,8 @@ var _ = Describe("Validator", func() {
 
 		validManifest = Manifest{
 			Name: "fake-installation-name",
-			Template: ReleaseJobRef{
-				Name:    "cpi",
-				Release: "provided-valid-release-name",
+			Templates: []ReleaseJobRef{
+				{Name: "cpi", Release: "provided-valid-release-name"},
 			},
 			Properties: biproperty.Map{
 				"fake-prop-key": "fake-prop-value",
@@ -68,8 +67,8 @@ var _ = Describe("Validator", func() {
 
 		It("validates template.name is not blank", func() {
 			manifest := Manifest{
-				Template: ReleaseJobRef{
-					Name: " ",
+				Templates: []ReleaseJobRef{
+					{Name: " "},
 				},
 			}
 
@@ -80,8 +79,8 @@ var _ = Describe("Validator", func() {
 
 		It("validates template.release is not blank", func() {
 			manifest := Manifest{
-				Template: ReleaseJobRef{
-					Release: " ",
+				Templates: []ReleaseJobRef{
+					{Release: " "},
 				},
 			}
 
@@ -92,8 +91,8 @@ var _ = Describe("Validator", func() {
 
 		It("validates the release is available", func() {
 			manifest := Manifest{
-				Template: ReleaseJobRef{
-					Release: "not-provided-valid-release-name",
+				Templates: []ReleaseJobRef{
+					{Release: "not-provided-valid-release-name"},
 				},
 			}
 

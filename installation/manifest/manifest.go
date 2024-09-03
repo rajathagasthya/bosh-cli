@@ -5,7 +5,8 @@ import (
 )
 
 type Manifest struct {
-	Name       string
+	Name string
+	// Deprecated: use Templates instead
 	Template   ReleaseJobRef
 	Templates  []ReleaseJobRef
 	Properties biproperty.Map

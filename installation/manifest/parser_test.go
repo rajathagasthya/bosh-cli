@@ -105,9 +105,8 @@ cloud_provider:
 
 				Expect(installationManifest).To(Equal(manifest.Manifest{
 					Name: "fake-deployment-name",
-					Template: manifest.ReleaseJobRef{
-						Name:    "fake-cpi-job-name",
-						Release: "fake-cpi-release-name",
+					Templates: []manifest.ReleaseJobRef{
+						{Name: "fake-cpi-job-name", Release: "fake-cpi-release-name"},
 					},
 					Properties: biproperty.Map{
 						"fake-property-name": biproperty.Map{
@@ -159,9 +158,8 @@ cloud_provider:
 
 						Expect(installationManifest).To(Equal(manifest.Manifest{
 							Name: "fake-deployment-name",
-							Template: manifest.ReleaseJobRef{
-								Name:    "fake-cpi-job-name",
-								Release: "fake-cpi-release-name",
+							Templates: []manifest.ReleaseJobRef{
+								{Name: "fake-cpi-job-name", Release: "fake-cpi-release-name"},
 							},
 							Properties: biproperty.Map{},
 							Mbus:       "http://fake-mbus-user:fake-mbus-password@0.0.0.0:6868",
@@ -242,9 +240,8 @@ cloud_provider:
 
 						Expect(installationManifest).To(Equal(manifest.Manifest{
 							Name: "fake-deployment-name",
-							Template: manifest.ReleaseJobRef{
-								Name:    "fake-cpi-job-name",
-								Release: "fake-cpi-release-name",
+							Templates: []manifest.ReleaseJobRef{
+								{Name: "fake-cpi-job-name", Release: "fake-cpi-release-name"},
 							},
 							Properties: biproperty.Map{},
 							Mbus:       "http://fake-mbus-user:fake-mbus-password@0.0.0.0:6868",
@@ -496,9 +493,8 @@ cloud_provider:
 
 				Expect(installationManifest).To(Equal(manifest.Manifest{
 					Name: "replaced-name",
-					Template: manifest.ReleaseJobRef{
-						Name:    "fake-cpi-job-name",
-						Release: "fake-cpi-release-name",
+					Templates: []manifest.ReleaseJobRef{
+						{Name: "fake-cpi-job-name", Release: "fake-cpi-release-name"},
 					},
 					Properties: biproperty.Map{},
 					Mbus:       "http://fake-mbus-user:fake-mbus-password@0.0.0.0:6868",

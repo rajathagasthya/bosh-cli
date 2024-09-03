@@ -26,6 +26,13 @@ func NewValidator(logger boshlog.Logger) Validator {
 func (v *validator) Validate(manifest Manifest, releaseSetManifest birelsetmanifest.Manifest) error {
 	errs := []error{}
 
+	if len(manifest.Templates) == 0 {
+		if err := v.validateReleaseJobRef(manifest.Template, releaseSetManifest); err != nil {
+			err = append(err, bosherr.Errorf("valid manifest.templates or manifest.template (deprecated) must be specified"))
+			return bosherr.NewMultiError(err...)
+		}
+	}
+
 	for _, template := range manifest.Templates {
 		errRet := v.validateReleaseJobRef(template, releaseSetManifest)
 		errs = append(errs, errRet...)
@@ -40,19 +47,19 @@ func (v *validator) Validate(manifest Manifest, releaseSetManifest birelsetmanif
 
 func (v *validator) validateReleaseJobRef(releaseJobRef ReleaseJobRef, releaseSetManifest birelsetmanifest.Manifest) []error {
 	errs := []error{}
-	cpiJobName := releaseJobRef.Name
-	if v.isBlank(cpiJobName) {
+	jobName := releaseJobRef.Name
+	if v.isBlank(jobName) {
 		errs = append(errs, bosherr.Error("cloud_provider.template.name must be provided"))
 	}
 
-	cpiReleaseName := releaseJobRef.Release
-	if v.isBlank(cpiReleaseName) {
+	releaseName := releaseJobRef.Release
+	if v.isBlank(releaseName) {
 		errs = append(errs, bosherr.Error("cloud_provider.template.release must be provided"))
 	}
 
-	_, found := releaseSetManifest.FindByName(cpiReleaseName)
+	_, found := releaseSetManifest.FindByName(releaseName)
 	if !found {
-		errs = append(errs, bosherr.Errorf("cloud_provider.template.release '%s' must refer to a release in releases", cpiReleaseName))
+		errs = append(errs, bosherr.Errorf("cloud_provider.template.release '%s' must refer to a release in releases", releaseName))
 	}
 	return errs
 }
