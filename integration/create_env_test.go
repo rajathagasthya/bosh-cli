@@ -291,9 +291,8 @@ cloud_provider:
 
 			installationManifest := biinstallmanifest.Manifest{
 				Name: "test-deployment",
-				Template: biinstallmanifest.ReleaseJobRef{
-					Name:    "fake-cpi-release-job-name",
-					Release: "fake-cpi-release-name",
+				Templates: []biinstallmanifest.ReleaseJobRef{
+					{Name: "fake-cpi-release-job-name", Release: "fake-cpi-release-name"},
 				},
 				Mbus: mbusURL,
 				Cert: biinstallmanifest.Certificate{

@@ -251,9 +251,8 @@ var _ = Describe("CreateEnvCmd", func() {
 
 			// parsed CPI deployment manifest
 			installationManifest = biinstallmanifest.Manifest{
-				Template: biinstallmanifest.ReleaseJobRef{
-					Name:    "fake-cpi-release-job-name",
-					Release: "fake-cpi-release-name",
+				Templates: []biinstallmanifest.ReleaseJobRef{
+					{Name: "fake-cpi-release-job-name", Release: "fake-cpi-release-name"},
 				},
 				Mbus: mbusURL,
 			}

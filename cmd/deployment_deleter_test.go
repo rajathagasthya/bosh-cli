@@ -182,9 +182,8 @@ cloud_provider:
 		var allowCPIToBeInstalled = func() {
 			installationManifest := biinstallmanifest.Manifest{
 				Name: "test-release",
-				Template: biinstallmanifest.ReleaseJobRef{
-					Name:    "fake-cpi-release-job-name",
-					Release: "fake-cpi-release-name",
+				Templates: []biinstallmanifest.ReleaseJobRef{
+					{Name: "fake-cpi-release-job-name", Release: "fake-cpi-release-name"},
 				},
 				Mbus:       mbusURL,
 				Properties: biproperty.Map{},
@@ -525,9 +524,8 @@ cloud_provider:
 			JustBeforeEach(func() {
 				installationManifest := biinstallmanifest.Manifest{
 					Name: "test-release",
-					Template: biinstallmanifest.ReleaseJobRef{
-						Name:    "fake-cpi-release-job-name",
-						Release: "fake-cpi-release-name",
+					Templates: []biinstallmanifest.ReleaseJobRef{
+						{Name: "fake-cpi-release-job-name", Release: "fake-cpi-release-name"},
 					},
 					Mbus:       mbusURL,
 					Properties: biproperty.Map{},
