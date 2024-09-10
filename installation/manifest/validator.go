@@ -1,6 +1,7 @@
 package manifest
 
 import (
+	"fmt"
 	"strings"
 
 	bosherr "github.com/cloudfoundry/bosh-utils/errors"
@@ -24,13 +25,11 @@ func NewValidator(logger boshlog.Logger) Validator {
 }
 
 func (v *validator) Validate(manifest Manifest, releaseSetManifest birelsetmanifest.Manifest) error {
-	errs := []error{}
+	var errs []error
 
+	// When there is nothing in templates, return an error. It should have a CPI release.
 	if len(manifest.Templates) == 0 {
-		if err := v.validateReleaseJobRef(manifest.Template, releaseSetManifest); err != nil {
-			err = append(err, bosherr.Errorf("valid manifest.templates or manifest.template (deprecated) must be specified"))
-			return bosherr.NewMultiError(err...)
-		}
+		return fmt.Errorf("manifest.Templates cannot be empty and must contain one release")
 	}
 
 	for _, template := range manifest.Templates {
@@ -46,7 +45,7 @@ func (v *validator) Validate(manifest Manifest, releaseSetManifest birelsetmanif
 }
 
 func (v *validator) validateReleaseJobRef(releaseJobRef ReleaseJobRef, releaseSetManifest birelsetmanifest.Manifest) []error {
-	errs := []error{}
+	var errs []error
 	jobName := releaseJobRef.Name
 	if v.isBlank(jobName) {
 		errs = append(errs, bosherr.Error("cloud_provider.template.name must be provided"))

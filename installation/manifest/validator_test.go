@@ -56,8 +56,20 @@ var _ = Describe("Validator", func() {
 			Expect(err).ToNot(HaveOccurred())
 		})
 
-		It("validates template must be fully specified", func() {
+		It("errors when validating an empty manifest", func() {
 			manifest := Manifest{}
+
+			err := validator.Validate(manifest, releaseSetManifest)
+			Expect(err).To(HaveOccurred())
+			Expect(err.Error()).To(ContainSubstring("manifest.Templates cannot be empty and must contain one release"))
+		})
+
+		It("validates template must be fully specified", func() {
+			manifest := Manifest{
+				Templates: []ReleaseJobRef{
+					{Name: "", Release: ""},
+				},
+			}
 
 			err := validator.Validate(manifest, releaseSetManifest)
 			Expect(err).To(HaveOccurred())
@@ -99,6 +111,13 @@ var _ = Describe("Validator", func() {
 			err := validator.Validate(manifest, releaseSetManifest)
 			Expect(err).To(HaveOccurred())
 			Expect(err.Error()).To(ContainSubstring("cloud_provider.template.release 'not-provided-valid-release-name' must refer to a release in releases"))
+		})
+
+		It("validates the release successfully when multiple valid templates are specified", func() {
+			validManifest.Templates = append(validManifest.Templates, ReleaseJobRef{Name: "plugin", Release: "provided-valid-release-name"})
+
+			err := validator.Validate(validManifest, releaseSetManifest)
+			Expect(err).ToNot(HaveOccurred())
 		})
 	})
 })
