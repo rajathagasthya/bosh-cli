@@ -11,6 +11,6 @@ func (f *FakeInstallation) Target() biinstallation.Target {
 	return biinstallation.Target{}
 }
 
-func (f *FakeInstallation) Job() biinstallation.InstalledJob {
-	return biinstallation.InstalledJob{}
+func (f *FakeInstallation) Jobs() []biinstallation.InstalledJob {
+	return []biinstallation.InstalledJob{}
 }

@@ -437,7 +437,7 @@ var _ = Describe("CreateEnvCmd", func() {
 			}).Return(installation, nil).AnyTimes()
 			mockInstaller.EXPECT().Cleanup(installation).AnyTimes()
 
-			//mockDeployment := mock_deployment.NewMockDeployment(mockCtrl)
+			// mockDeployment := mock_deployment.NewMockDeployment(mockCtrl)
 
 			expectDeploy = mockDeployer.EXPECT().Deploy(
 				mockCloud,
@@ -748,7 +748,8 @@ var _ = Describe("CreateEnvCmd", func() {
 			It("returns error", func() {
 				err := command.Run(fakeStage, defaultCreateEnvOpts)
 				Expect(err).To(HaveOccurred())
-				Expect(err.Error()).To(Equal("Invalid CPI release 'fake-cpi-release-name': CPI release must contain specified job 'fake-cpi-release-job-name'"))
+				Expect(err.Error()).To(Equal(`Found 0 releases containing a template that renders to target 'bin/cpi'. Expected to find 1. Releases inspected: [fake-cpi-release-name]
+release 'fake-cpi-release-name' must contain specified job 'fake-cpi-release-job-name'`))
 			})
 		})
 
